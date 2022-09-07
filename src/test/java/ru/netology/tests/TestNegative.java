@@ -23,21 +23,6 @@ public class TestNegative {
     }
 
     @Test
-    @DisplayName("Should be declined operation buying travel with credit by invalid card")
-    void shouldNoBuyTravelWithCredit() {
-        PageMain page = new PageMain();
-        page.toCredit();
-        page.pageCredit();
-        page.fillFormBuy(DataHelper.getCardDeclined());
-        page.toSent();
-        page.declinedMessage();
-        var id = DataHelper.getIdOperationCredit();
-        var status = DataHelper.getStatusOperationCredit();
-        assertEquals(id, status.getBank_id());
-        assertEquals("DECLINED", status.getStatus());
-    }
-
-    @Test
     @DisplayName("Should be declined operation buying travel by invalid card")
     void shouldNoBuyTravel() {
         PageMain page = new PageMain();
@@ -53,6 +38,21 @@ public class TestNegative {
     }
 
     @Test
+    @DisplayName("Should be declined operation buying travel with credit by invalid card")
+    void shouldNoBuyTravelWithCredit() {
+        PageMain page = new PageMain();
+        page.toCredit();
+        page.pageCredit();
+        page.fillFormBuy(DataHelper.getCardDeclined());
+        page.toSent();
+        page.declinedMessage();
+        var id = DataHelper.getIdOperationCredit();
+        var status = DataHelper.getStatusOperationCredit();
+        assertEquals(id, status.getBank_id());
+        assertEquals("DECLINED", status.getStatus());
+    }
+
+    @Test
     @DisplayName("Should be declined operation buying travel by invalid card. without write data in DB")
     void shouldNoBuyTravelInvalidCard() {
         PageMain page = new PageMain();
@@ -61,20 +61,6 @@ public class TestNegative {
         page.fillFormBuy(DataHelper.getAnyCard());
         page.toSent();
         page.declinedMessage();
-    }
-
-    @Test
-    @DisplayName("Should be messages about filling form's fields")
-    void shouldMessageFillFieldsAll() {
-        PageMain page = new PageMain();
-        page.toBuy();
-        page.pageBuy();
-        page.toSent();
-        page.emptyFieldCardMessage();
-        page.emptyFieldMonthMessage();
-        page.emptyFieldYearMessage();
-        page.emptyFieldOwnerMessage();
-        page.emptyFieldCodeMessage();
     }
 
     @Test
@@ -233,9 +219,73 @@ public class TestNegative {
         page.wrongFieldYearMessage();
         page.wrongFieldOwnerMessage();
         page.wrongFieldCodeMessage();
-        page.cleanForm();
+        page.cleanFieldCard();
+        page.cleanFieldMonth();
+        page.cleanFieldYear();
+        page.cleanFieldOwner();
+        page.cleanFieldCode();
         page.fillFormBuy(DataHelper.getAnyCard());
         page.toSent();
         page.declinedMessage();
+    }
+
+    @Test
+    @DisplayName("Should be messages about empty field 'number card'")
+    void shouldMessageEmptyFieldsCard() {
+        PageMain page = new PageMain();
+        page.toBuy();
+        page.pageBuy();
+        page.fillFormBuy(DataHelper.getAnyCard());
+        page.cleanFieldCard();
+        page.toSent();
+        page.emptyFieldCardMessage();
+    }
+
+    @Test
+    @DisplayName("Should be messages about empty field 'Month'")
+    void shouldMessageEmptyFieldsMonth() {
+        PageMain page = new PageMain();
+        page.toBuy();
+        page.pageBuy();
+        page.fillFormBuy(DataHelper.getAnyCard());
+        page.cleanFieldMonth();
+        page.toSent();
+        page.emptyFieldMonthMessage();
+    }
+
+    @Test
+    @DisplayName("Should be messages about empty field 'year'")
+    void shouldMessageEmptyFieldsYear() {
+        PageMain page = new PageMain();
+        page.toBuy();
+        page.pageBuy();
+        page.fillFormBuy(DataHelper.getAnyCard());
+        page.cleanFieldYear();
+        page.toSent();
+        page.emptyFieldYearMessage();
+    }
+
+    @Test
+    @DisplayName("Should be messages about empty field 'owner")
+    void shouldMessageEmptyFieldsOwner() {
+        PageMain page = new PageMain();
+        page.toBuy();
+        page.pageBuy();
+        page.fillFormBuy(DataHelper.getAnyCard());
+        page.cleanFieldOwner();
+        page.toSent();
+        page.emptyFieldOwnerMessage();
+    }
+
+    @Test
+    @DisplayName("Should be messages about empty field 'CVC/CVV")
+    void shouldMessageEmptyFieldsCode() {
+        PageMain page = new PageMain();
+        page.toBuy();
+        page.pageBuy();
+        page.fillFormBuy(DataHelper.getAnyCard());
+        page.cleanFieldCode();
+        page.toSent();
+        page.emptyFieldCodeMessage();
     }
 }

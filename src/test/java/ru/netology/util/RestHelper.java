@@ -5,6 +5,7 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+
 import static io.restassured.RestAssured.given;
 
 public class RestHelper {
@@ -32,6 +33,7 @@ public class RestHelper {
                         .response();
         return response.path("status");
     }
+
     public String sentFormCredit(DataHelper.FormFields form) {
         Response response =
                 given()

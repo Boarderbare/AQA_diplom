@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class DataHelper {
     public DataHelper() {
     }
+
     public static Faker faker = new Faker(new Locale("en"));
 
     @Value
@@ -108,7 +109,6 @@ public class DataHelper {
 
     public static DateMonthYear getDateInPastThisYear() {
         LocalDate date = LocalDate.now();
-        var date1 = LocalDate.of(5, 12, 31);
         var year = String.valueOf(new DecimalFormat("00").format(date.getYear() - 2000));
         int month = date.getMonthValue();
         var valueMonth = String.valueOf(new DecimalFormat("00").format(new Random().nextInt(month - 1) + 1));

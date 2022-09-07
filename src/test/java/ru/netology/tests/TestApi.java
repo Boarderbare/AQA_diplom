@@ -22,6 +22,10 @@ public class TestApi {
         RestHelper rest = new RestHelper();
         var actual = rest.sentFormBuy(info);
         assertEquals("APPROVED", actual);
+        var id = DataHelper.getIdOperationBuying();
+        var status = DataHelper.getStatusOperationBuying();
+        assertEquals(id, status.getTransaction_id());
+        assertEquals("APPROVED", status.getStatus());
     }
 
     @Test
@@ -31,6 +35,10 @@ public class TestApi {
         RestHelper rest = new RestHelper();
         var actual = rest.sentFormCredit(info);
         assertEquals("APPROVED", actual);
+        var id = DataHelper.getIdOperationCredit();
+        var status = DataHelper.getStatusOperationCredit();
+        assertEquals(id, status.getBank_id());
+        assertEquals("APPROVED", status.getStatus());
     }
 
     @Test
@@ -40,6 +48,10 @@ public class TestApi {
         RestHelper rest = new RestHelper();
         var actual = rest.sentFormBuy(info);
         assertEquals("DECLINED", actual);
+        var id = DataHelper.getIdOperationBuying();
+        var status = DataHelper.getStatusOperationBuying();
+        assertEquals(id, status.getTransaction_id());
+        assertEquals("DECLINED", status.getStatus());
     }
 
     @Test
@@ -49,5 +61,9 @@ public class TestApi {
         RestHelper rest = new RestHelper();
         var actual = rest.sentFormCredit(info);
         assertEquals("DECLINED", actual);
+        var id = DataHelper.getIdOperationCredit();
+        var status = DataHelper.getStatusOperationCredit();
+        assertEquals(id, status.getBank_id());
+        assertEquals("DECLINED", status.getStatus());
     }
 }

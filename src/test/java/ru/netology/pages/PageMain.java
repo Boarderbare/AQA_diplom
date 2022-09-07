@@ -4,6 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 import ru.netology.util.DataHelper;
+
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
@@ -132,20 +133,27 @@ public class PageMain {
         first.parent().$(".input__sub").shouldHave(exactText("Неверно указан срок действия карты"));
     }
 
-//    public void errorMessageClose() {
-//        SelenideElement buttonClose = $(".notification button");
-//        buttonClose.click();
-//    }
-
-    public void cleanForm() {
+    public void cleanFieldCard() {
         cardField.sendKeys(Keys.CONTROL + "A");
         cardField.sendKeys(Keys.DELETE);
+    }
+
+    public void cleanFieldMonth() {
         monthField.sendKeys(Keys.CONTROL + "A");
         monthField.sendKeys(Keys.DELETE);
+    }
+
+    public void cleanFieldYear() {
         yearField.sendKeys(Keys.CONTROL + "A");
         yearField.sendKeys(Keys.DELETE);
+    }
+
+    public void cleanFieldOwner() {
         ownerField.sendKeys(Keys.CONTROL + "A");
         ownerField.sendKeys(Keys.DELETE);
+    }
+
+    public void cleanFieldCode() {
         codeField.sendKeys(Keys.CONTROL + "A");
         codeField.sendKeys(Keys.DELETE);
     }
