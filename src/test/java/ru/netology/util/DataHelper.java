@@ -9,7 +9,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
-
 import java.sql.DriverManager;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -20,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 public class DataHelper {
     public DataHelper() {
     }
-
     public static Faker faker = new Faker(new Locale("en"));
 
     @Value
@@ -69,13 +67,6 @@ public class DataHelper {
         String year;
     }
 
-    public static DateMonthYear getDate() {
-        var date = faker.date().future(365 * 5, TimeUnit.DAYS);
-        var month = new DecimalFormat("00").format(date.getMonth() + 1);
-        var year = String.valueOf(date.getYear() - 100);
-        return new DateMonthYear(month, year);
-    }
-
     public static FormFields getMonthWithZeros() {
         var date = getDate();
         return new FormFields(getNumberCard(), "00", date.getYear(), getOwner(), getCode());
@@ -108,8 +99,16 @@ public class DataHelper {
         return new FormFields(getNumberCard(), date.getMonth(), year, getOwner(), getCode());
     }
 
+    public static DateMonthYear getDate() {
+        var date = faker.date().future(365 * 5, TimeUnit.DAYS);
+        var month = new DecimalFormat("00").format(date.getMonth() + 1);
+        var year = String.valueOf(date.getYear() - 100);
+        return new DateMonthYear(month, year);
+    }
+
     public static DateMonthYear getDateInPastThisYear() {
         LocalDate date = LocalDate.now();
+        var date1 = LocalDate.of(5, 12, 31);
         var year = String.valueOf(new DecimalFormat("00").format(date.getYear() - 2000));
         int month = date.getMonthValue();
         var valueMonth = String.valueOf(new DecimalFormat("00").format(new Random().nextInt(month - 1) + 1));
@@ -201,4 +200,20 @@ public class DataHelper {
             return runner.query(conn, getStatus, new BeanHandler<>(StatusOperationCredit.class));
         }
     }
+
+    @SneakyThrows
+    public static void cleanData() {
+        var runner = new QueryRunner();
+        var deleteDate1 = "delete  from payment_entity";
+        var deleteDate2 = "delete  from order_entity";
+        var deleteDate3 = "delete  from credit_request_entity";
+
+        try (var conn = DriverManager.getConnection(
+                "jdbc:postgresql://localhost:5432/db", "postgresdb", "pass");) {
+            runner.update(conn, deleteDate1);
+            runner.update(conn, deleteDate2);
+            runner.update(conn, deleteDate3);
+        }
+    }
 }
+

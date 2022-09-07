@@ -1,5 +1,6 @@
 package ru.netology.tests;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,19 +10,17 @@ import ru.netology.util.DataHelper;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestsNegative {
-    private DataHelper.FormFields formFields;
-
+public class TestNegative {
 
     @BeforeEach
     public void setUp() {
         open("http://localhost:8080/");
     }
 
-//    @AfterAll
-//    public static void cleanData() {
-//        DataHelper.cleanData();
-//    }
+    @AfterAll
+    public static void cleanData() {
+        DataHelper.cleanData();
+    }
 
     @Test
     @DisplayName("Should be declined operation buying travel with credit by invalid card")
@@ -239,5 +238,4 @@ public class TestsNegative {
         page.toSent();
         page.declinedMessage();
     }
-
 }
