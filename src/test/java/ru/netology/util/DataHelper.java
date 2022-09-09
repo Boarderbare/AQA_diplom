@@ -54,7 +54,6 @@ public class DataHelper {
     }
 
     public static String getNumberCard() {
-//        return faker.finance().creditCard(CreditCardType.VISA);
         return faker.business().creditCardNumber();
     }
 
@@ -74,23 +73,19 @@ public class DataHelper {
     }
 
     public static FormFields getMonthWrong() {
-        var date = getDate();
-        return new FormFields(getNumberCard(), "13", date.getYear(), getOwner(), getCode());
+        return new FormFields(getNumberCard(), "13", getDate().getYear(), getOwner(), getCode());
     }
 
     public static FormFields getMonthOneDigit() {
-        var date = getDate();
-        return new FormFields(getNumberCard(), "1", date.getYear(), getOwner(), getCode());
+        return new FormFields(getNumberCard(), "1", getDate().getYear(), getOwner(), getCode());
     }
 
     public static FormFields getYearOneDigit() {
-        var date = getDate();
-        return new FormFields(getNumberCard(), date.getMonth(), "1", getOwner(), getCode());
+        return new FormFields(getNumberCard(), getDate().getMonth(), "1", getOwner(), getCode());
     }
 
     public static FormFields getYearWithZeros() {
-        var date = getDate();
-        return new FormFields(getNumberCard(), date.getMonth(), "00", getOwner(), getCode());
+        return new FormFields(getNumberCard(), getDate().getMonth(), "00", getOwner(), getCode());
     }
 
     public static FormFields getYearWrong() {
@@ -109,7 +104,7 @@ public class DataHelper {
 
     public static DateMonthYear getDateInPastThisYear() {
         LocalDate date = LocalDate.now();
-        var year = String.valueOf(new DecimalFormat("00").format(date.getYear() - 2000));
+        var year = new DecimalFormat("00").format(date.getYear() - 2000);
         int month = date.getMonthValue();
         var valueMonth = String.valueOf(new DecimalFormat("00").format(new Random().nextInt(month - 1) + 1));
         return new DateMonthYear(valueMonth, year);
@@ -151,7 +146,7 @@ public class DataHelper {
     }
 
     public static FormFields getCodeWrong() {
-        var date = getDateInPastThisYear();
+        var date = getDate();
         return new FormFields(getNumberCard(), date.getMonth(), date.getYear(), getOwner(), getDigit());
     }
 

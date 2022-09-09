@@ -1,6 +1,9 @@
 package ru.netology.tests;
 
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.netology.pages.PageMain;
 import ru.netology.util.DataHelper;
@@ -13,6 +16,13 @@ public class TestApi {
     @AfterAll
     public static void cleanData() {
         DataHelper.cleanData();
+    }
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @Test
