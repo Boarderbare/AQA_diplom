@@ -22,7 +22,7 @@
 
 По итогам сформирован отчет с использованием Allure Report.
 
-![AllureReport](AllureReport.png)
+![AllureReport](AllureReport.jpg)
 
 Выявленные дефекты отражены в Issues.
 #### Рекомендации:
