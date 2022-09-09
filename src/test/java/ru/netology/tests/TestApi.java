@@ -14,22 +14,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestApi {
 
     @AfterAll
-    public static void cleanData() {
-        DataHelper.cleanData();
-    }
     static void tearDownAll() {
+        DataHelper.cleanData();
         SelenideLogger.removeListener("allure");
     }
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
+    public PageMain page = new PageMain();
+    public RestHelper rest = new RestHelper();
 
     @Test
     public void shouldSuccessfulBuying() {
-        PageMain page = new PageMain();
         var info = DataHelper.getCardApproved();
-        RestHelper rest = new RestHelper();
         var actual = rest.sentFormBuy(info);
         assertEquals("APPROVED", actual);
         var id = DataHelper.getIdOperationBuying();
@@ -40,9 +38,7 @@ public class TestApi {
 
     @Test
     public void shouldSuccessfulBuyingOnCredit() {
-        PageMain page = new PageMain();
         var info = DataHelper.getCardApproved();
-        RestHelper rest = new RestHelper();
         var actual = rest.sentFormCredit(info);
         assertEquals("APPROVED", actual);
         var id = DataHelper.getIdOperationCredit();
@@ -53,9 +49,7 @@ public class TestApi {
 
     @Test
     public void shouldDeclineBuying() {
-        PageMain page = new PageMain();
         var info = DataHelper.getCardDeclined();
-        RestHelper rest = new RestHelper();
         var actual = rest.sentFormBuy(info);
         assertEquals("DECLINED", actual);
         var id = DataHelper.getIdOperationBuying();
@@ -66,14 +60,113 @@ public class TestApi {
 
     @Test
     public void shouldDeclineBuyingOnCredit() {
-        PageMain page = new PageMain();
         var info = DataHelper.getCardDeclined();
-        RestHelper rest = new RestHelper();
         var actual = rest.sentFormCredit(info);
         assertEquals("DECLINED", actual);
         var id = DataHelper.getIdOperationCredit();
         var status = DataHelper.getStatusOperationCredit();
         assertEquals(id, status.getBank_id());
         assertEquals("DECLINED", status.getStatus());
+    }
+    @Test
+    public void shouldErrorSentCardEmptyFormBuy() {
+        var info = DataHelper.getCardEmpty();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentCardOneDigitFormBuy() {
+        var info = DataHelper.getCardOneDigit();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentMonthEmptyFormBuy() {
+        var info = DataHelper.getMonthEmpty();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentMonthOneDigitFormBuy() {
+        var info = DataHelper.getMonthOneDigit();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentYearEmptyFormBuy() {
+        var info = DataHelper.getYearEmpty();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentYearOneDigitFormBuy() {
+        var info = DataHelper.getYearOneDigit();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentOwnerEmptyFormBuy() {
+        var info = DataHelper.getOwnerEmpty();
+        rest.sentInvalidFormToBuy(info);
+    }
+    @Test
+    public void shouldErrorSentOwnerOneCharFormBuy() {
+        var info = DataHelper.getOwnerOneChar();
+        rest.sentInvalidFormToBuy(info);
+    }
+    @Test
+    public void shouldErrorSentCodeEmptyFormBuy() {
+        var info = DataHelper.getCodeEmpty();
+        rest.sentInvalidFormToBuy(info);
+    }
+    @Test
+    public void shouldErrorSentCodeOneDigitFormBuy() {
+        var info = DataHelper.getCodeOneDigit();
+        rest.sentInvalidFormToBuy(info);
+    }
+
+    @Test
+    public void shouldErrorSentCardEmptyFormCredit() {
+        var info = DataHelper.getCardEmpty();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentCardOneDigitFormCredit() {
+        var info = DataHelper.getCardOneDigit();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentMonthEmptyFormCredit() {
+        var info = DataHelper.getMonthEmpty();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentMonthOneDigitFormCredit() {
+        var info = DataHelper.getMonthOneDigit();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentYearEmptyFormCredit() {
+        var info = DataHelper.getYearEmpty();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentYearOneDigitFormCredit() {
+        var info = DataHelper.getYearOneDigit();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentOwnerEmptyFormCredit() {
+        var info = DataHelper.getOwnerEmpty();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentOwnerOneCharFormCredit() {
+        var info = DataHelper.getOwnerOneChar();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentCodeEmptyFormCredit() {
+        var info = DataHelper.getCodeEmpty();
+        rest.sentInvalidFormToCredit(info);
+    }
+    @Test
+    public void shouldErrorSentCodeOneDigitFormCredit() {
+        var info = DataHelper.getCodeOneDigit();
+        rest.sentInvalidFormToCredit(info);
     }
 }

@@ -47,4 +47,22 @@ public class RestHelper {
                         .response();
         return response.path("status");
     }
+    public void sentInvalidFormToBuy(DataHelper.FormFields form) {
+                given()
+                        .spec(requestSpec)
+                        .body(form)
+                        .when()
+                        .post("/api/v1/pay")
+                        .then()
+                        .statusCode(400);
+    }
+    public void sentInvalidFormToCredit(DataHelper.FormFields form) {
+        given()
+                .spec(requestSpec)
+                .body(form)
+                .when()
+                .post("/api/v1/credit")
+                .then()
+                .statusCode(400);
+    }
 }

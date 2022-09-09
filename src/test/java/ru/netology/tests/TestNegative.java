@@ -17,10 +17,8 @@ public class TestNegative {
     }
 
     @AfterAll
-    public static void cleanData() {
-        DataHelper.cleanData();
-    }
     static void tearDownAll() {
+        DataHelper.cleanData();
         SelenideLogger.removeListener("allure");
     }
     @BeforeAll
@@ -207,7 +205,7 @@ public class TestNegative {
         PageMain page = new PageMain();
         page.toBuy();
         page.pageBuy();
-        page.fillFormBuy(DataHelper.getCodeWrong());
+        page.fillFormBuy(DataHelper.getCodeOneDigit());
         page.toSent();
         page.wrongFieldCodeMessage();
     }

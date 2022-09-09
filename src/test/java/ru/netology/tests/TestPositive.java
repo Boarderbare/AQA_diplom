@@ -11,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPositive {
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         open("http://localhost:8080/");
     }
+
     @AfterAll
-    public static void cleanData() {
-        DataHelper.cleanData();
-    }
     static void tearDownAll() {
+        DataHelper.cleanData();
         SelenideLogger.removeListener("allure");
     }
+
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());

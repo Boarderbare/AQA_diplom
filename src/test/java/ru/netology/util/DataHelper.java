@@ -50,7 +50,16 @@ public class DataHelper {
 
     public static FormFields getCardWithZero() {
         var date = getDate();
-        return new FormFields("0", date.getMonth(), date.getYear(), getOwner(), getCode());
+        return new FormFields(getZero(), date.getMonth(), date.getYear(), getOwner(), getCode());
+    }
+
+    public static FormFields getCardEmpty() {
+        var date = getDate();
+        return new FormFields(getEmpty(), date.getMonth(), date.getYear(), getOwner(), getCode());
+    }
+    public static FormFields getCardOneDigit() {
+        var date = getDate();
+        return new FormFields(getDigit(), date.getMonth(), date.getYear(), getOwner(), getCode());
     }
 
     public static String getNumberCard() {
@@ -58,7 +67,18 @@ public class DataHelper {
     }
 
     public static String getDigit() {
-        return String.valueOf(new Random().nextInt(10));
+        return String.valueOf(new Random().nextInt(9) + 1);
+    }
+
+    public static String getZero() {
+        return "0";
+    }
+
+    public static String getEmpty() {
+        return "";
+    }
+    public static String getOneChar() {
+        return faker.letterify("?");
     }
 
     @Value
@@ -77,11 +97,19 @@ public class DataHelper {
     }
 
     public static FormFields getMonthOneDigit() {
-        return new FormFields(getNumberCard(), "1", getDate().getYear(), getOwner(), getCode());
+        return new FormFields(getNumberCard(), getDigit(), getDate().getYear(), getOwner(), getCode());
+    }
+
+    public static FormFields getMonthEmpty() {
+        return new FormFields(getNumberCard(), getEmpty(), getDate().getYear(), getOwner(), getCode());
     }
 
     public static FormFields getYearOneDigit() {
-        return new FormFields(getNumberCard(), getDate().getMonth(), "1", getOwner(), getCode());
+        return new FormFields(getNumberCard(), getDate().getMonth(), getDigit(), getOwner(), getCode());
+    }
+
+    public static FormFields getYearEmpty() {
+        return new FormFields(getNumberCard(), getDate().getMonth(), getEmpty(), getOwner(), getCode());
     }
 
     public static FormFields getYearWithZeros() {
@@ -121,7 +149,16 @@ public class DataHelper {
 
     public static FormFields getOwnerDigits() {
         var date = getDateInPastThisYear();
-        return new FormFields(getNumberCard(), date.getMonth(), date.getYear(), getCode(), getCode());
+        return new FormFields(getNumberCard(), date.getMonth(), date.getYear(), getDigit(), getCode());
+    }
+
+    public static FormFields getOwnerEmpty() {
+        var date = getDateInPastThisYear();
+        return new FormFields(getNumberCard(), date.getMonth(), date.getYear(), getEmpty(), getCode());
+    }
+    public static FormFields getOwnerOneChar() {
+        var date = getDateInPastThisYear();
+        return new FormFields(getNumberCard(), date.getMonth(), date.getYear(), getOneChar(), getCode());
     }
 
     public static FormFields getWrongOwnerWithSpecChar() {
@@ -145,9 +182,14 @@ public class DataHelper {
         return faker.number().digits(3);
     }
 
-    public static FormFields getCodeWrong() {
+    public static FormFields getCodeOneDigit() {
         var date = getDate();
         return new FormFields(getNumberCard(), date.getMonth(), date.getYear(), getOwner(), getDigit());
+    }
+
+    public static FormFields getCodeEmpty() {
+        var date = getDate();
+        return new FormFields(getNumberCard(), date.getMonth(), date.getYear(), getOwner(), getEmpty());
     }
 
     public static FormFields getFormAllFieldsDigit() {
