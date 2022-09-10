@@ -5,12 +5,12 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import lombok.experimental.UtilityClass;
 
 import static io.restassured.RestAssured.given;
 
+@UtilityClass
 public class RestHelper {
-    public RestHelper() {
-    }
 
     private final RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
@@ -20,13 +20,13 @@ public class RestHelper {
             .log(LogDetail.ALL)
             .build();
 
-    public String sentFormBuy(DataHelper.FormFields form) {
+    public String sentForm(DataHelper.FormFields form, String path) {
         Response response =
                 given()
                         .spec(requestSpec)
                         .body(form)
                         .when()
-                        .post("/api/v1/pay")
+                        .post(path)
                         .then()
                         .statusCode(200)
                         .extract()
@@ -34,34 +34,12 @@ public class RestHelper {
         return response.path("status");
     }
 
-    public String sentFormCredit(DataHelper.FormFields form) {
-        Response response =
-                given()
-                        .spec(requestSpec)
-                        .body(form)
-                        .when()
-                        .post("api/v1/credit")
-                        .then()
-                        .statusCode(200)
-                        .extract()
-                        .response();
-        return response.path("status");
-    }
-    public void sentInvalidFormToBuy(DataHelper.FormFields form) {
-                given()
-                        .spec(requestSpec)
-                        .body(form)
-                        .when()
-                        .post("/api/v1/pay")
-                        .then()
-                        .statusCode(400);
-    }
-    public void sentInvalidFormToCredit(DataHelper.FormFields form) {
+    public void sentInvalidForm(DataHelper.FormFields form, String path) {
         given()
                 .spec(requestSpec)
                 .body(form)
                 .when()
-                .post("/api/v1/credit")
+                .post(path)
                 .then()
                 .statusCode(400);
     }
