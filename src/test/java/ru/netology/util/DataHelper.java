@@ -12,9 +12,13 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import java.sql.DriverManager;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+
+import static java.time.LocalTime.now;
 
 public class DataHelper {
     public DataHelper() {
@@ -118,23 +122,31 @@ public class DataHelper {
 
     public static FormFields getYearWrong() {
         var date = getDate();
-        var dateWrong = faker.date().future(365 * 10, 365 * 5, TimeUnit.DAYS);
-        var year = String.valueOf(dateWrong.getYear() - 100);
+        var year = LocalDate.now().plusYears(10).format(DateTimeFormatter.ofPattern("yy"));
         return new FormFields(getNumberCard(), date.getMonth(), year, getOwner(), getCode());
     }
 
-    public static DateMonthYear getDate() {
-        var date = faker.date().future(365 * 5, TimeUnit.DAYS);
-        var month = new DecimalFormat("00").format(date.getMonth() + 1);
-        var year = String.valueOf(date.getYear() - 100);
+//    public static DateMonthYear getDate() {
+//        var date = faker.date().future(365 * 5, TimeUnit.DAYS);
+//        var month = new DecimalFormat("00").format(date.getMonth() + 1);
+//        var year = String.valueOf(date.getYear() - 100);
+//        return new DateMonthYear(month, year);
+//    }
+
+    public static DateMonthYear getDate(){
+        long minDay =LocalDate.now().toEpochDay();
+        long maxDay = LocalDate.now().plusYears(5).toEpochDay();
+        long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
+        var year = LocalDate.ofEpochDay(randomDay).format(DateTimeFormatter.ofPattern("yy"));
+        var  month= LocalDate.ofEpochDay(randomDay).format(DateTimeFormatter.ofPattern("MM"));
         return new DateMonthYear(month, year);
     }
 
     public static DateMonthYear getDateInPastThisYear() {
         LocalDate date = LocalDate.now();
-        var year = new DecimalFormat("00").format(date.getYear() - 2000);
+        var year = date.format(DateTimeFormatter.ofPattern("yy"));
         int month = date.getMonthValue();
-        var valueMonth = String.valueOf(new DecimalFormat("00").format(new Random().nextInt(month - 1) + 1));
+        var valueMonth = new DecimalFormat("00").format(new Random().nextInt(month - 1) + 1);
         return new DateMonthYear(valueMonth, year);
     }
 
