@@ -29,6 +29,11 @@ public class TestNegative {
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
+    private final String messageEmpty= "Поле обязательно для заполнения";
+    private final String messageWrongFormat= "Неверный формат";
+    private final String messageWrongDate= "Неверно указан срок действия карты";
+    private final String messageExpiredDate= "Истёк срок действия карты";
+
 
 
     @Test
@@ -76,7 +81,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getCardWithZero());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.wrongFieldCardMessage();
+        pageBuy.messageFieldCardMessage(messageWrongFormat);
     }
 
     @Test
@@ -86,7 +91,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getMonthWithZeros());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.validityMonthMessage();
+        pageBuy.messageFieldMonthMessage(messageWrongDate);
     }
 
     @Test
@@ -96,7 +101,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getMonthWrong());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.validityMonthMessage();
+        pageBuy.messageFieldMonthMessage(messageWrongDate);
     }
 
     @Test
@@ -106,7 +111,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getMonthOneDigit());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.wrongFieldMonthMessage();
+        pageBuy.messageFieldMonthMessage(messageWrongFormat);
     }
 
     @Test
@@ -116,7 +121,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getYearOneDigit());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.wrongFieldYearMessage();
+        pageBuy.messageFieldYearMessage(messageWrongFormat);
     }
 
     @Test
@@ -126,7 +131,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getYearWrong());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.validityYearMessage();
+        pageBuy.messageFieldYearMessage(messageWrongDate);
     }
 
     @Test
@@ -136,17 +141,17 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getYearWithZeros());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.expiredCardMessageYear();
+        pageBuy.messageFieldYearMessage(messageExpiredDate);
     }
 
     @Test
-    @DisplayName("Should be messages about wrong data in year field. Year - currently, month - before")
+    @DisplayName("Should be messages about wrong data in month field. Year - currently, month - before")
     void shouldMessageExpiredCard2() {
         pageMain.toBuy()
                 .fillFormBuy(DataHelper.getDateExpired());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.expiredCardMessageMonth();
+        pageBuy.messageFieldMonthMessage(messageExpiredDate);
     }
 
     @Test
@@ -156,7 +161,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getOwnerDigits());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.wrongFieldOwnerMessage();
+        pageBuy.messageFieldOwnerMessage(messageWrongFormat);
     }
 
     @Test
@@ -166,7 +171,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getOwnerCyrillic());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.wrongFieldOwnerMessage();
+        pageBuy.messageFieldOwnerMessage(messageWrongFormat);
     }
 
     @Test
@@ -176,7 +181,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getOwnerOnlyFirstName());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.wrongFieldOwnerMessage();
+        pageBuy.messageFieldOwnerMessage(messageWrongFormat);
     }
 
     @Test
@@ -186,17 +191,17 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getWrongOwnerWithSpecChar());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.wrongFieldOwnerMessage();
+        pageBuy.messageFieldOwnerMessage(messageWrongFormat);
     }
 
     @Test
-    @DisplayName("Should be messages about wrong data in 'Code' field. Value 'code' - digit ")
+    @DisplayName("Should be messages about wrong data in 'Code' field. Value 'code' - one digit ")
     void shouldMessageWrongFieldCode() {
         pageMain.toBuy()
                 .fillFormBuy(DataHelper.getCodeOneDigit());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.wrongFieldCodeMessage();
+        pageBuy.messageFieldCodeMessage(messageWrongFormat);
     }
 
     @Test
@@ -206,11 +211,11 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getFormAllFieldsDigit());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.wrongFieldCardMessage();
-        pageBuy.wrongFieldMonthMessage();
-        pageBuy.wrongFieldYearMessage();
-        pageBuy.wrongFieldOwnerMessage();
-        pageBuy.wrongFieldCodeMessage();
+        pageBuy.messageFieldCardMessage(messageWrongFormat);
+        pageBuy.messageFieldMonthMessage(messageWrongFormat);
+        pageBuy.messageFieldYearMessage(messageWrongFormat);
+        pageBuy.messageFieldOwnerMessage(messageWrongFormat);
+        pageBuy.messageFieldCodeMessage(messageWrongFormat);
         pageBuy.cleanFieldsForm();
         pageBuy.fillFormBuy(DataHelper.getAnyCard());
         pageBuy.toSent();
@@ -224,7 +229,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getCardEmpty());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.emptyFieldCardMessage();
+        pageBuy.messageFieldCardMessage(messageEmpty);
     }
 
     @Test
@@ -234,7 +239,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getMonthEmpty());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.emptyFieldMonthMessage();
+        pageBuy.messageFieldMonthMessage(messageEmpty);
     }
 
     @Test
@@ -244,7 +249,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getYearEmpty());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.emptyFieldYearMessage();
+        pageBuy.messageFieldYearMessage(messageEmpty);
     }
 
     @Test
@@ -254,7 +259,7 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getOwnerEmpty());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.emptyFieldOwnerMessage();
+        pageBuy.messageFieldOwnerMessage(messageEmpty);
     }
 
     @Test
@@ -264,6 +269,6 @@ public class TestNegative {
                 .fillFormBuy(DataHelper.getCodeEmpty());
         PageBuy pageBuy = new PageBuy();
         pageBuy.toSent();
-        pageBuy.emptyFieldCodeMessage();
+        pageBuy.messageFieldCodeMessage(messageEmpty);
     }
 }

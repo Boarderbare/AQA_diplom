@@ -39,6 +39,7 @@ public class PageBuy {
     private SelenideElement messageSuccess = $(byText("Успешно"));
     private SelenideElement messageApprove = $(byText("Операция одобрена Банком."));
 
+
     public void toSent() {
         buttonSent.click();
     }
@@ -61,60 +62,24 @@ public class PageBuy {
         messageApprove.shouldBe(visible, Duration.ofSeconds(10));
     }
 
-    public void emptyFieldCardMessage() {
-        belowFieldCard.shouldHave(exactText("Поле обязательно для заполнения"));
+    public void messageFieldCardMessage(String messageText) {
+        belowFieldCard.shouldHave(exactText(messageText));
     }
 
-    public void emptyFieldMonthMessage() {
-        belowFieldMonth.shouldHave(exactText("Поле обязательно для заполнения"));
+    public void messageFieldMonthMessage(String messageText) {
+        belowFieldMonth.shouldHave(exactText(messageText));
     }
 
-    public void emptyFieldYearMessage() {
-        belowFieldYear.shouldHave(exactText("Поле обязательно для заполнения"));
+    public void messageFieldYearMessage(String messageText) {
+        belowFieldYear.shouldHave(exactText(messageText));
     }
 
-    public void emptyFieldOwnerMessage() {
-        belowFieldOwner.shouldHave(exactText("Поле обязательно для заполнения"));
+    public void messageFieldOwnerMessage(String messageText) {
+        belowFieldOwner.shouldHave(exactText(messageText));
     }
 
-    public void emptyFieldCodeMessage() {
-        belowFieldCode.shouldHave(exactText("Поле обязательно для заполнения"));
-    }
-
-    public void wrongFieldCardMessage() {
-        belowFieldCard.shouldHave(exactText("Неверный формат"));
-    }
-
-    public void wrongFieldMonthMessage() {
-        belowFieldMonth.shouldHave(exactText("Неверный формат"));
-    }
-
-    public void wrongFieldYearMessage() {
-        belowFieldYear.shouldHave(exactText("Неверный формат"));
-    }
-
-    public void wrongFieldOwnerMessage() {
-        belowFieldOwner.shouldHave(exactText("Неверный формат"));
-    }
-
-    public void wrongFieldCodeMessage() {
-        belowFieldCode.shouldHave(exactText("Неверный формат"));
-    }
-
-    public void validityMonthMessage() {
-        belowFieldMonth.shouldHave(exactText("Неверно указан срок действия карты"));
-    }
-
-    public void validityYearMessage() {
-        belowFieldYear.shouldHave(exactText("Неверно указан срок действия карты"));
-    }
-
-    public void expiredCardMessageYear() {
-        belowFieldYear.shouldHave(exactText("Истёк срок действия карты"));
-    }
-
-    public void expiredCardMessageMonth() {
-        belowFieldMonth.shouldHave(exactText("Истёк срок действия карты"));
+    public void messageFieldCodeMessage(String messageText)git comm {
+        belowFieldCode.shouldHave(exactText(messageText));
     }
 
     public void cleanFieldsForm() {
