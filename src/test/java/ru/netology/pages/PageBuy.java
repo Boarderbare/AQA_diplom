@@ -63,23 +63,23 @@ public class PageBuy {
     }
 
     public void messageFieldCardMessage(String messageText) {
-        belowFieldCard.shouldHave(exactText(messageText));
+        belowFieldCard.shouldHave(visible, exactText(messageText));
     }
 
     public void messageFieldMonthMessage(String messageText) {
-        belowFieldMonth.shouldHave(exactText(messageText));
+        belowFieldMonth.shouldHave(visible, exactText(messageText));
     }
 
     public void messageFieldYearMessage(String messageText) {
-        belowFieldYear.shouldHave(exactText(messageText));
+        belowFieldYear.shouldHave(visible, exactText(messageText));
     }
 
     public void messageFieldOwnerMessage(String messageText) {
-        belowFieldOwner.shouldHave(exactText(messageText));
+        belowFieldOwner.shouldHave(visible, exactText(messageText));
     }
 
-    public void messageFieldCodeMessage(String messageText)git comm {
-        belowFieldCode.shouldHave(exactText(messageText));
+    public void messageFieldCodeMessage(String messageText) {
+        belowFieldCode.shouldHave(visible, exactText(messageText));
     }
 
     public void cleanFieldsForm() {

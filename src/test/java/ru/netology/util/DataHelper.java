@@ -16,9 +16,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
-
-import static java.time.LocalTime.now;
+//import java.util.concurrent.TimeUnit;
+//import static java.time.LocalTime.now;
 
 public class DataHelper {
     public DataHelper() {
@@ -61,6 +60,7 @@ public class DataHelper {
         var date = getDate();
         return new FormFields(getEmpty(), date.getMonth(), date.getYear(), getOwner(), getCode());
     }
+
     public static FormFields getCardOneDigit() {
         var date = getDate();
         return new FormFields(getDigit(), date.getMonth(), date.getYear(), getOwner(), getCode());
@@ -81,6 +81,7 @@ public class DataHelper {
     public static String getEmpty() {
         return "";
     }
+
     public static String getOneChar() {
         return faker.letterify("?");
     }
@@ -126,19 +127,12 @@ public class DataHelper {
         return new FormFields(getNumberCard(), date.getMonth(), year, getOwner(), getCode());
     }
 
-//    public static DateMonthYear getDate() {
-//        var date = faker.date().future(365 * 5, TimeUnit.DAYS);
-//        var month = new DecimalFormat("00").format(date.getMonth() + 1);
-//        var year = String.valueOf(date.getYear() - 100);
-//        return new DateMonthYear(month, year);
-//    }
-
-    public static DateMonthYear getDate(){
-        long minDay =LocalDate.now().toEpochDay();
+    public static DateMonthYear getDate() {
+        long minDay = LocalDate.now().toEpochDay();
         long maxDay = LocalDate.now().plusYears(5).toEpochDay();
         long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
         var year = LocalDate.ofEpochDay(randomDay).format(DateTimeFormatter.ofPattern("yy"));
-        var  month= LocalDate.ofEpochDay(randomDay).format(DateTimeFormatter.ofPattern("MM"));
+        var month = LocalDate.ofEpochDay(randomDay).format(DateTimeFormatter.ofPattern("MM"));
         return new DateMonthYear(month, year);
     }
 
@@ -168,6 +162,7 @@ public class DataHelper {
         var date = getDateInPastThisYear();
         return new FormFields(getNumberCard(), date.getMonth(), date.getYear(), getEmpty(), getCode());
     }
+
     public static FormFields getOwnerOneChar() {
         var date = getDateInPastThisYear();
         return new FormFields(getNumberCard(), date.getMonth(), date.getYear(), getOneChar(), getCode());
